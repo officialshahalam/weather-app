@@ -28,8 +28,8 @@ function switchTab(newTab) {
         currentTab = newTab;
         currentTab.classList.add("currentTab");
 
-        // Check which TAb is Selected - search / your
 
+        // Check which TAb is Selected - search / your
         // If Search Form not contains active class then add  [Search Weather]
         if (!searchForm.classList.contains("active")) {
             searchForm.classList.add("active");
@@ -79,7 +79,6 @@ async function fetchWeatherInfo(coordinates) {
     // try - catch Block
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`);
-
         const data = await response.json();
         if (!data.sys) {
             throw data;
@@ -97,7 +96,6 @@ async function fetchWeatherInfo(coordinates) {
         errorBtn.addEventListener("click", fetchWeatherInfo);
     }
 }
-
 // Render Weather On UI
 function renderWeatherInfo(weatherInfo) {
     const cityName = document.querySelector('[data-cityName]');
@@ -118,7 +116,6 @@ function renderWeatherInfo(weatherInfo) {
     humidity.innerText = `${weatherInfo?.main?.humidity.toFixed(2)} %`;
     clouds.innerText = `${weatherInfo?.clouds?.all.toFixed(2)} %`;
 }
-
 const grantAccessButton = document.querySelector('[data-grantAccess]');
 
 function getLocation() {
@@ -140,11 +137,8 @@ function showPosition(position) {
 }
 
 grantAccessButton.addEventListener('click', getLocation);
-
-
 // Search for weather
 const searchInput = document.querySelector('[data-searchInput]');
-
 searchForm.addEventListener('submit', (e) => {
     e.preventDefault();
     if (searchInput.value === "") {
@@ -159,11 +153,9 @@ searchForm.addEventListener('submit', (e) => {
 async function fetchSearchWeatherInfo(city) {
     loadingContainer.classList.add("active");
     userInfoContainer.classList.remove("active");
-    grantAccessContainer.classList.remove("active");
     notFound.classList.remove("active");
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
-
         const data = await response.json();
         if (!data.sys) {
             throw data;
@@ -180,4 +172,3 @@ async function fetchSearchWeatherInfo(city) {
         errorBtn.style.display = "none";
     }
 }
-
